@@ -33,27 +33,30 @@ const SentimentForm = ({ onFormSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {days.map((day) => (
-        <div key={day}>
-          <h2>{day}</h2>
-          {sentiments.map((sentiment) => (
-            <div key={sentiment}>
-              <label>
-                {sentiment}:
-                <input
-                  type="number"
-                  value={form[day][sentiment]}
-                  onChange={(e) =>
-                    handleInputChange(day, sentiment, e.target.value)
-                  }
-                />
-              </label>
-            </div>
-          ))}
-        </div>
-      ))}
+      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        {days.map((day) => (
+          <div key={day} style={{ margin: "10px" }}>
+            <h2>{day}</h2>
+            {sentiments.map((sentiment) => (
+              <div key={sentiment}>
+                <label>
+                  {sentiment}:
+                  <input
+                    type="number"
+                    value={form[day][sentiment]}
+                    onChange={(e) =>
+                      handleInputChange(day, sentiment, e.target.value)
+                    }
+                  />
+                </label>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
       <button type="submit">Submit</button>
     </form>
   );
 };
+
 export default SentimentForm;

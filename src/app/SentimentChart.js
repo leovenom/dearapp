@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import DayChart from "./DayChart";
-import { PieChart } from "react-minimal-pie-chart";
-import { Pie, Cell, Sector } from "recharts";
+import { PieChart, Pie, Cell, Sector } from "recharts"; // import from recharts
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF"];
 
@@ -76,31 +75,39 @@ export const SentimentChart = ({ data }) => {
   }));
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
       {daysData.map(({ day, data }) => (
         <DayChart key={day} day={day} data={data} />
       ))}
-      <h2>Week</h2>
-      <PieChart width={400} height={200}>
-        <Pie
-          data={weekDataForChart}
-          cx={120}
-          cy={100}
-          innerRadius={40}
-          outerRadius={80}
-          fill="#8884d8"
-          paddingAngle={5}
-          dataKey="value"
-          activeIndex={activeIndex}
-          activeShape={renderActiveShape}
-          onMouseEnter={onPieEnter}
-        >
-          {weekDataForChart.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
+      {weekDataForChart.length > 0 && (
+        <>
+          <h2>Week</h2>
+          <PieChart width={400} height={200}>
+            <Pie
+              data={weekDataForChart}
+              cx={120}
+              cy={100}
+              innerRadius={40}
+              outerRadius={80}
+              fill="#8884d8"
+              paddingAngle={5}
+              dataKey="value"
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              onMouseEnter={onPieEnter}
+            >
+              {weekDataForChart.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+          </PieChart>
+        </>
+      )}
     </div>
   );
 };
+
 export default SentimentChart;
