@@ -60,6 +60,16 @@ function DayChart({ day, data }) {
     };
   });
 
+  const data01 = dataForChart.map((entry, index) => ({
+    ...entry,
+    fill: COLORS[index % COLORS.length],
+  }));
+
+  const data02 = dataForChart.map((entry, index) => ({
+    ...entry,
+    fill: "#82ca9d",
+  }));
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -78,7 +88,7 @@ function DayChart({ day, data }) {
             innerRadius={40}
             outerRadius={80}
             fill="#8884d8"
-            paddingAngle={5}
+            paddingAngle={0}
             dataKey="value"
             activeIndex={activeIndex}
             activeShape={renderActiveShape}

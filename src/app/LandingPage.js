@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import SentimentForm from "./SentimentForm";
-import SentimentChart from "./SentimentChart";
+import SentimentChart from "./SentimentChart.client";
 import styles from "./LandingPage.module.css";
 
 const LandingPage = () => {

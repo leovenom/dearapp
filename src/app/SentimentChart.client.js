@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import DayChart from "./DayChart";
 import { PieChart, Pie, Cell, Sector, Circle } from "recharts";
@@ -106,10 +107,10 @@ export const SentimentChart = ({ data }) => {
             data={weekDataForChart}
             cx={200}
             cy={200}
-            innerRadius={80}
+            innerRadius={50}
             outerRadius={160}
             fill="#8884d8"
-            paddingAngle={5}
+            paddingAngle={0}
             dataKey="value"
             activeIndex={activeIndex}
             activeShape={renderActiveShape}
