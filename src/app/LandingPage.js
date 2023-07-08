@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SentimentForm from "./SentimentForm";
 import SentimentChart from "./SentimentChart";
+import styles from "./LandingPage.module.css";
 
 const LandingPage = () => {
   const [data, setData] = useState(null);
@@ -10,10 +11,18 @@ const LandingPage = () => {
   };
 
   return (
-    <div>
-      <h1>Sentiment Tracker</h1>
-      <SentimentForm onFormSubmit={handleFormSubmit} />
-      {data && <SentimentChart data={data} />}
+    <div className={styles.container}>
+      <h1 className={styles.title}>Sentiment Tracker</h1>
+      <br />
+      <div className={styles.contentContainer}>
+        <div className={styles.formContainer}>
+          <SentimentForm onFormSubmit={handleFormSubmit} />
+          {/* {data && <SentimentChart data={data} />} */}
+        </div>
+      </div>
+      <div className={styles.chartContainer}>
+        {data && <SentimentChart data={data} />}
+      </div>
     </div>
   );
 };

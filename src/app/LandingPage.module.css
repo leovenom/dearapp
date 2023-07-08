@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .title {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .contentContainer {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 20px;
+  }
+  
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .formItem {
+    margin-bottom: 20px;
+  }
+  
+  .chartContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }

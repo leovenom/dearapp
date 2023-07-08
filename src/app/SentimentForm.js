@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import styles from "./SentimentForm.module.css";
 
 const sentiments = ["Happy", "Sad", "Angry", "Relaxed", "Excited"];
 const days = [
@@ -14,47 +15,49 @@ const days = [
 const SentimentForm = ({ onFormSubmit }) => {
   const [form, setForm] = useState(
     days.reduce((obj, day) => {
-      obj[day] = sentiments.reduce((o, sentiment) => {
-        o[sentiment] = 0;
+      obj[day] = sentiments.reduce((o, sentiment, index) => {
+        o[sentiment] = index === 0 ? 1 : 0; // Set the first sentiment as initial state
         return o;
       }, {});
       return obj;
     }, {})
   );
 
-  const handleInputChange = (day, sentiment, value) => {
-    setForm({ ...form, [day]: { ...form[day], [sentiment]: Number(value) } });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  useEffect(() => {
     onFormSubmit(form);
+  }, [form, onFormSubmit]);
+
+  const handleInputChange = (day, sentiment, value) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      [day]: { ...prevForm[day], [sentiment]: Number(value) },
+    }));
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-        {days.map((day) => (
-          <div key={day} style={{ margin: "10px" }}>
-            <h2>{day}</h2>
-            {sentiments.map((sentiment) => (
-              <div key={sentiment}>
-                <label>
-                  {sentiment}:
-                  <input
-                    type="number"
-                    value={form[day][sentiment]}
-                    onChange={(e) =>
-                      handleInputChange(day, sentiment, e.target.value)
-                    }
-                  />
-                </label>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <button type="submit">Submit</button>
+    <form className={styles.form}>
+      {days.map((day) => (
+        <div key={day} className={styles.dayContainer}>
+          <h2 className={styles.day}>{day}</h2>
+          {sentiments.map((sentiment) => (
+            <div key={sentiment} className={styles.sentimentContainer}>
+              <label>
+                {sentiment}:
+                <input
+                  type="range"
+                  min={0}
+                  max={10}
+                  value={form[day][sentiment]}
+                  onChange={(e) =>
+                    handleInputChange(day, sentiment, e.target.value)
+                  }
+                />
+                <span>{form[day][sentiment]}</span>
+              </label>
+            </div>
+          ))}
+        </div>
+      ))}
     </form>
   );
 };

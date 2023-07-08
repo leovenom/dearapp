@@ -1,0 +1,24 @@
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .dayContainer {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .sentimentContainer {
+    margin-bottom: 10px;
+  }
+
+  @media (min-width: 768px) {
+    .form {
+      justify-content: space-between;
+    }
+    
+    .dayContainer {
+      width: 11%;
+    }
+  }

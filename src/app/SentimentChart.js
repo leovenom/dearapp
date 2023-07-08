@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DayChart from "./DayChart";
-import { PieChart, Pie, Cell, Sector } from "recharts"; // import from recharts
+import { PieChart, Pie, Cell, Sector, Circle } from "recharts";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF"];
 
@@ -31,6 +31,8 @@ const renderActiveShape = (props) => {
         startAngle={startAngle}
         endAngle={endAngle}
         fill={fill}
+        stroke={fill}
+        strokeWidth={2}
       />
       <Sector
         cx={cx}
@@ -40,6 +42,8 @@ const renderActiveShape = (props) => {
         innerRadius={outerRadius + 6}
         outerRadius={outerRadius + 10}
         fill={fill}
+        stroke={fill}
+        strokeWidth={2}
       />
       <text x={cx} y={cy} dy={-8} textAnchor="middle" fill={fill}>
         {`${(percent * 100).toFixed(2)}%`}
@@ -75,37 +79,83 @@ export const SentimentChart = ({ data }) => {
   }));
 
   return (
-    <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-      {daysData.map(({ day, data }) => (
-        <DayChart key={day} day={day} data={data} />
-      ))}
-      {weekDataForChart.length > 0 && (
-        <>
-          <h2>Week</h2>
-          <PieChart width={400} height={200}>
-            <Pie
-              data={weekDataForChart}
-              cx={120}
-              cy={100}
-              innerRadius={40}
-              outerRadius={80}
-              fill="#8884d8"
-              paddingAngle={5}
-              dataKey="value"
-              activeIndex={activeIndex}
-              activeShape={renderActiveShape}
-              onMouseEnter={onPieEnter}
-            >
-              {weekDataForChart.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
+    <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        {daysData.map(({ day, data }) => (
+          <DayChart key={day} day={day} data={data} />
+        ))}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "60px",
+        }}
+      >
+        <h2>Week</h2>
+        <PieChart width={400} height={400}>
+          <Pie
+            data={weekDataForChart}
+            cx={200}
+            cy={200}
+            innerRadius={80}
+            outerRadius={160}
+            fill="#8884d8"
+            paddingAngle={5}
+            dataKey="value"
+            activeIndex={activeIndex}
+            activeShape={renderActiveShape}
+            onMouseEnter={onPieEnter}
+          >
+            {weekDataForChart.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={`url(#color-${index})`}
+                stroke={`url(#color-${index})`}
+              />
+            ))}
+          </Pie>
+          <Circle
+            cx={200}
+            cy={200}
+            r={80}
+            fill="#8884d8"
+            stroke="#8884d8"
+            strokeWidth={2}
+          />
+          <defs>
+            {weekDataForChart.map((entry, index) => (
+              <linearGradient
+                id={`color-${index}`}
+                key={`gradient-${index}`}
+                x1="0"
+                y1="0"
+                x2="1"
+                y2="1"
+              >
+                <stop
+                  offset="5%"
+                  stopColor={COLORS[index % COLORS.length]}
+                  stopOpacity={1}
                 />
-              ))}
-            </Pie>
-          </PieChart>
-        </>
-      )}
+                <stop
+                  offset="95%"
+                  stopColor={COLORS[index % COLORS.length]}
+                  stopOpacity={0.3}
+                />
+              </linearGradient>
+            ))}
+          </defs>
+        </PieChart>
+      </div>
     </div>
   );
 };
