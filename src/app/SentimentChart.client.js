@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import DayChart from "./DayChart";
-import { PieChart, Pie, Cell, Sector, Circle } from "recharts";
+import { PieChart, Pie, Cell, Sector, Circle, Legend } from "recharts";
 
 const COLORS = ["#0088FE", "#FF8042", "#FFBB28", "#00C49F", "#AF19FF"];
 
@@ -74,6 +74,13 @@ export const SentimentChart = ({ data }) => {
     };
   });
 
+  const total = weekDataForChart.reduce((sum, entry) => sum + entry.value, 0);
+
+  const weekDataWithPercentage = weekDataForChart.map((entry) => ({
+    ...entry,
+    percentage: ((entry.value / total) * 100).toFixed(2),
+  }));
+
   const daysData = Object.keys(data).map((day) => ({
     day,
     data: data[day],
@@ -102,7 +109,7 @@ export const SentimentChart = ({ data }) => {
         }}
       >
         <h2>Week</h2>
-        <PieChart width={400} height={400}>
+        <PieChart width={600} height={400}>
           <Pie
             data={weekDataForChart}
             cx={200}
@@ -155,6 +162,23 @@ export const SentimentChart = ({ data }) => {
               </linearGradient>
             ))}
           </defs>
+          <Legend
+            iconSize={20}
+            width={167}
+            height={100}
+            iconType="rect"
+            layout="vertical"
+            verticalAlign="middle"
+            align="right"
+            formatter={(value, entry) => {
+              const sentimentEntry = weekDataWithPercentage.find(
+                (item) => item.name === entry.payload.name
+              );
+              return `${value} (${
+                sentimentEntry ? sentimentEntry.percentage : 0
+              }%)`;
+            }}
+          />
         </PieChart>
       </div>
     </div>
