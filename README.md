@@ -1,5 +1,5 @@
 
-<img width="1694" alt="Screenshot 2023-07-08 at 20 03 16" src="https://github.com/leovenom/dearapp/assets/45887012/6de06c37-5c0c-4e83-9cc3-de7b9dc6408f">
+<img width="1694" alt="Screenshot 2023-07-08 at 20 03 16" src="https://github.com/leovenom/dearapp/assets/45887012/55d8846d-a14a-4bdd-8f10-239096fd83cf">
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
