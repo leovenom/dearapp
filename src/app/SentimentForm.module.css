@@ -2,11 +2,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    text-align: center;
   }
   
-  .dayContainer {
+  .dayContainer h2 {
     width: 100%;
     margin-bottom: 20px;
+    text-align: center;
   }
   
   .sentimentContainer {
