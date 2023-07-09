@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     text-align: center;
+
   }
   
   .dayContainer h2 {
@@ -22,5 +23,8 @@
     
     .dayContainer {
       width: 11%;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 8px;
     }
   }

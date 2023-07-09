@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { PieChart, Pie, Cell, Sector } from "recharts";
+import styles from "./Daychart.module.css";
 
 const COLORS = ["#0088FE", "#FF8042", "#FFBB28", "#00C49F", "#AF19FF"];
 
@@ -71,38 +72,27 @@ function DayChart({ day, data }) {
   }));
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <h2
-        style={{ marginTop: "10px", marginBottom: "10px", marginLeft: "24px" }}
-      >
-        {day}
-      </h2>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <PieChart width={220} height={220}>
-          <Pie
-            data={dataForChart}
-            cx={120}
-            cy={100}
-            innerRadius={40}
-            outerRadius={80}
-            fill="#8884d8"
-            paddingAngle={0}
-            dataKey="value"
-            activeIndex={activeIndex}
-            activeShape={renderActiveShape}
-            onMouseEnter={onPieEnter}
-          >
-            {dataForChart.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-        </PieChart>
-      </div>
+    <div className={styles.dayContainer}>
+      <h2 style={{ marginTop: "10px", marginBottom: "10px" }}>{day}</h2>
+      <PieChart width={220} height={220}>
+        <Pie
+          data={dataForChart}
+          cx={110}
+          cy={110}
+          innerRadius={40}
+          outerRadius={80}
+          fill="#8884d8"
+          paddingAngle={0}
+          dataKey="value"
+          activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          onMouseEnter={onPieEnter}
+        >
+          {dataForChart.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+      </PieChart>
     </div>
   );
 }

@@ -94,6 +94,7 @@ export const SentimentChart = ({ data }) => {
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "center",
+          columnGap: "8px",
         }}
       >
         {daysData.map(({ day, data }) => (
@@ -106,6 +107,9 @@ export const SentimentChart = ({ data }) => {
           flexDirection: "column",
           alignItems: "center",
           marginTop: "60px",
+          paddingTop: "60px",
+          backgroundColor: "#fff",
+          borderRadius: "5px",
         }}
       >
         <h2>Week</h2>
